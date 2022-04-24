@@ -46,6 +46,16 @@ const ABI = [
   },
   {
     inputs: [
+      { internalType: "address[]", name: "_addressArray", type: "address[]" },
+      { internalType: "uint256", name: "_role", type: "uint256" },
+    ],
+    name: "createMultipleStakeHolders",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
       { internalType: "address", name: "_address", type: "address" },
       { internalType: "uint256", name: "_role", type: "uint256" },
     ],
@@ -203,7 +213,7 @@ const ABI = [
   },
 ];
 const CHAIN = "rinkeby";
-const CONTRACTADDRESS = "0xCcE3556F422F011dbf3F9782d177Ee219eA011dE";
+const CONTRACTADDRESS = "0x251e18258E3FcDF32767AFe05b5398D0e51fA6E9";
 // const CONTRACTADDRESS = "0xd39f7640739b1AF36d223709C5442e4944595ea1";
 
 async function login() {
@@ -399,7 +409,6 @@ async function displayCandidatesOnScreen() {
   //@abiola start from here
   candidatesArray.length && loopCandidate(candidatesArray);
 }
-// <img src="https://img.freepik.com/free-photo/3d-rendering-male-character-profile-with-cream-hat-orange-polo-shirt-good-character-profile_477250-61.jpg?size=338&ext=jpg&ga=GA1.1.1906834557.1622206067" alt="voters image" class="h-52 w-52">
 
 function loopCandidate(array) {
   document.getElementById("candidate-list").innerHTML = array
@@ -416,39 +425,3 @@ function loopCandidate(array) {
     )
     .join("");
 }
-
-// <img src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200" alt="">
-
-// `
-//         <div class="cursor-pointer rounded-sm">
-//         <img src="https://img.freepik.com/free-photo/3d-rendering-male-character-profile-with-cream-hat-orange-polo-shirt-good-character-profile_477250-61.jpg?size=338&ext=jpg&ga=GA1.1.1906834557.1622206067" alt="voters image" class="h-52 w-52">
-//         <div class="bg-zinc-700 text-center w-52">
-//         <h1 class="text-lg font-bold">ID: ${candidatesArray[0][0]}</h1>
-//         <p class="font-sans font-light">${candidatesArray[0][1]}</p>
-//         </div>
-//         </div>
-
-//         <div class="cursor-pointer rounded-sm">
-//           <img src="https://img.freepik.com/free-photo/3d-rendering-male-character-profile-with-cream-hat-orange-polo-shirt-good-character-profile_477250-61.jpg?size=338&ext=jpg&ga=GA1.1.1906834557.1622206067" alt="voters image" class="h-52 w-52">
-//           <div class="bg-zinc-700 text-center w-52">
-//           <h1 class="text-lg font-bold">ID: ${candidatesArray[1][0]}</h1>
-//           <p class="font-sans font-light">${candidatesArray[1][1]}</p>
-//           </div>
-//         </div>
-
-//         <div class="cursor-pointer rounded-sm">
-//           <img src="https://img.freepik.com/free-photo/3d-rendering-male-character-profile-with-cream-hat-orange-polo-shirt-good-character-profile_477250-61.jpg?size=338&ext=jpg&ga=GA1.1.1906834557.1622206067" alt="voters image" class="h-52 w-52">
-//           <div class="bg-zinc-700 text-center w-52">
-//           <h1 class="text-lg font-bold">ID: ${candidatesArray[2][0]}</h1>
-//           <p class="font-sans font-light">${candidatesArray[2][1]}</p>
-//           </div>
-//         </div>
-
-//         <div class="cursor-pointer rounded-sm">
-//           <img src="https://img.freepik.com/free-photo/3d-rendering-male-character-profile-with-cream-hat-orange-polo-shirt-good-character-profile_477250-61.jpg?size=338&ext=jpg&ga=GA1.1.1906834557.1622206067" alt="voters image" class="h-52 w-52">
-//           <div class="bg-zinc-700 text-center w-52">
-//           <h1 class="text-lg font-bold">ID: ${candidatesArray[3][0]}</h1>
-//           <p class="font-sans font-light">${candidatesArray[3][1]}</p>
-//           </div>
-//         </div>
-//   `;

@@ -47,6 +47,16 @@ const ABI = [
   },
   {
     inputs: [
+      { internalType: "address[]", name: "_addressArray", type: "address[]" },
+      { internalType: "uint256", name: "_role", type: "uint256" },
+    ],
+    name: "createMultipleStakeHolders",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
       { internalType: "address", name: "_address", type: "address" },
       { internalType: "uint256", name: "_role", type: "uint256" },
     ],
@@ -205,7 +215,7 @@ const ABI = [
 ];
 const CHAIN = "rinkeby";
 // const CONTRACTADDRESS = "0xd39f7640739b1AF36d223709C5442e4944595ea1";
-const CONTRACTADDRESS = "0xCcE3556F422F011dbf3F9782d177Ee219eA011dE";
+const CONTRACTADDRESS = "0x251e18258E3FcDF32767AFe05b5398D0e51fA6E9";
 
 async function login() {
   let user = Moralis.User.current();
@@ -371,8 +381,8 @@ async function displayCandidatesOnScreen() {
 
   //@abiola start from here
   candidatesArray.length && loopCandidate(candidatesArray);
+  candidatesArray.length && loopTable(candidatesArray);
 }
-// <img src="https://img.freepik.com/free-photo/3d-rendering-male-character-profile-with-cream-hat-orange-polo-shirt-good-character-profile_477250-61.jpg?size=338&ext=jpg&ga=GA1.1.1906834557.1622206067" alt="voters image" class="h-52 w-52">
 
 function loopCandidate(array) {
   document.getElementById("result list").innerHTML = array
@@ -382,12 +392,65 @@ function loopCandidate(array) {
       <img src="https://img.freepik.com/free-photo/3d-rendering-male-character-profile-with-cream-hat-orange-polo-shirt-good-character-profile_477250-61.jpg?size=338&ext=jpg&ga=GA1.1.1906834557.1622206067" alt="voters image" class="h-52 w-52">
       <div class="bg-zinc-700 text-center w-52">
       <h1 class="text-lg font-bold">ID: ${candidate[0]}</h1>
-      <p class="font-sans font-light">${candidate[1]}</p>
+      <p class="font-sans font-light">Name: ${candidate[1]}</p>
       </div>
       </div>
       `
     )
     .join("");
+}
+function loopTable(array) {
+  document.getElementById("count-result").innerHTML = array
+    .map(
+      (candidate) =>
+        `
+        <tr>
+          <th scope="row">${candidate[0]}</th>
+          <td>${candidate[1]}</td>
+          <td>${candidate[2]}</td>
+          <td>${candidate[3]}</td>
+          <td>${candidate[4]}</td>
+          <td>${candidate[5]}</td>
+          <td>${candidate[6]}</td>
+          <td>${candidate[7]}</td>
+      </tr>
+      `
+    )
+    .join("");
+}
+
+// return user to homepage if result is not active
+if (getStateData("resultStatus") === false) {
+  function secondsCounter() {
+    let count = 0;
+    let counter = setInterval(() => {
+      count++;
+      console.log("count: ", count);
+      document.getElementById("modal").classList.replace("hidden", "grid");
+      document.getElementById(
+        "modal-header"
+      ).innerHTML = `Result is not active`;
+      document.getElementById("modal-header").innerHTML =
+        "Result is not active";
+      document.getElementById(
+        "modal-body"
+      ).innerHTML = `You will be redirected back to homepage in ${count} seconds checkback later when result are opened`;
+
+      if (count === 5) {
+        document.getElementById(
+          "modal-body"
+        ).innerHTML = `redirecting to homepage`;
+
+        clearInterval(1);
+      }
+    }, 1000);
+    return counter;
+  }
+  secondsCounter();
+
+  setTimeout(() => {
+    window.location.replace("../index.html");
+  }, 5000);
 }
 
 console.info("result");

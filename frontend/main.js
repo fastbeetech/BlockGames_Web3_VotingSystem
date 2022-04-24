@@ -4,7 +4,7 @@ const appId = "AuH19PpSEOGZ1g2U08nV6tnNvgTkDMzaS8VqvjyI";
 Moralis.start({ serverUrl, appId });
 
 const CHAIN = "rinkeby";
-const CONTRACTADDRESS = "0xCcE3556F422F011dbf3F9782d177Ee219eA011dE";
+const CONTRACTADDRESS = "0x251e18258E3FcDF32767AFe05b5398D0e51fA6E9";
 
 async function login() {
   let user = Moralis.User.current();
@@ -19,6 +19,7 @@ async function login() {
         setState("account", user.get("ethAddress"));
         document.getElementById("walletAddressButton").innerHTML =
           user.get("ethAddress");
+        setModal();
       })
       .catch(function (error) {
         console.log(error);
@@ -38,7 +39,7 @@ document.getElementById("btn-logout").onclick = logOut;
 //LOCAL STORAGE TRYOUT
 
 function setState(key, params) {
-  let stateData = localStorage.setItem(key, JSON.stringify(params));
+  localStorage.setItem(key, JSON.stringify(params));
   getStateData(key);
 }
 
@@ -57,7 +58,6 @@ if (getStateData("account")) {
   document.getElementById("walletAddressButton").innerHTML =
     getStateData("account");
 }
-document.getElementById("modal").onload = setModal;
 
 function setModal() {
   if (getStateData("account")) {
@@ -67,3 +67,10 @@ function setModal() {
       "Your Connection to metamask was successful";
   }
 }
+
+document.getElementById("close").onclick = function () {
+  document.getElementById("modal").classList.replace("grid", "hidden");
+};
+document.getElementById("closeBtn").onclick = function () {
+  document.getElementById("modal").classList.replace("grid", "hidden");
+};
